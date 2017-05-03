@@ -6,13 +6,34 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Landing</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary" center>
+        <ion-title>Welcome to Journey Recorder</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-sm-1 col-md-2 col-xl-3></ion-col>
+            <ion-col col-12 col-sm-10 col-md-8 col-xl-6 justify-content-center>
+                <img src="../../assets/img/header.png" alt="header">
+
+                <button ion-button block (click)="goToHome()">
+                  Start record your journey.
+                </button>
+                <ion-buttons end>
+                    <button ion-button clear (click)="goToLogin()">
+                      Login.
+                    </button>
+                    <button ion-button clear (click)="goToSignup()">
+                      Sign-up.
+                    </button>
+                </ion-buttons>
+            </ion-col>
+            <ion-col col-sm-1 col-md-2 col-xl-3></ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

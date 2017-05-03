@@ -21,4 +21,16 @@ export class LandingPage {
     console.log('ionViewDidLoad LandingPage');
   }
 
+  goToHome() {
+    this.navCtrl.setRoot('HomePage');
+  }
+
+  goToLogin() {
+    this.navCtrl.push('LoginPage');
+  }
+
+  goToSignup() {
+    this.navCtrl.push('SignupPage');
+  }
+
 }
