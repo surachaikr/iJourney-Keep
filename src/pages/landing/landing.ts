@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { AuthDataProvider } from "../../providers/auth-data/auth-data";
 
 /**
  * Generated class for the LandingPage page.
@@ -14,7 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LandingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public authData: AuthDataProvider, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -22,7 +23,16 @@ export class LandingPage {
   }
 
   goToHome() {
-    this.navCtrl.setRoot('HomePage');
+    const loading = this.loadingCtrl.create();
+    loading.present();
+
+    this.authData.signInAnonymously().then((user) => {
+      console.log("uid = " + user.uid);
+      loading.dismiss().then(() => {
+        this.navCtrl.setRoot('HomePage');
+      });
+    });
+
   }
 
   goToLogin() {

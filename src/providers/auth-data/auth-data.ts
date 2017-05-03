@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import firebase from "firebase";
 
 /*
   Generated class for the AuthDataProvider provider.
@@ -11,8 +11,45 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthDataProvider {
 
-  constructor(public http: Http) {
+  constructor() {
     console.log('Hello AuthDataProvider Provider');
+  }
+
+  signInAnonymously(): any {
+      return firebase.auth().signInAnonymously();
+  }
+
+  login(email: string, password: string): any {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+  }
+
+  logout(): firebase.Promise<void> {
+    firebase.database().ref('/userProfile')
+      .child(firebase.auth().currentUser.uid).off();
+    return firebase.auth().signOut();
+  }
+
+  createAccount(email: string, password: string): any {
+    let currentUser = firebase.auth().currentUser;
+    if(currentUser) {
+      //link to current user.
+      let credential = firebase.auth.EmailAuthProvider.credential(email, password);
+      currentUser.link(credential).then((user) => {
+        console.log("Link account success.");
+        firebase.database().ref('/userProfile').child(currentUser.uid).set(`{email: ${email}}`);
+      }, (error) => {
+        console.log("Link account error.", error);
+      });
+    }else{
+      //create new account
+      return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+        firebase.database().ref('/userProfile').child(user.uid).set(`{email: ${email}}`);
+      });
+    }
+  }
+
+  sendResetPassword(email: string): any {
+    return firebase.auth().sendPasswordResetEmail(email);
   }
 
 }

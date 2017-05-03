@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { AuthDataProvider } from "../../providers/auth-data/auth-data";
+import { BasePage } from "../../lib/base-page";
 
 /**
  * Generated class for the HomePage page.
@@ -12,9 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage {
+export class HomePage extends BasePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public authData: AuthDataProvider) {
+    super(navCtrl);
   }
 
   ionViewDidLoad() {
