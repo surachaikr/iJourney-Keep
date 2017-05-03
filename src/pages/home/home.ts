@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { AuthDataProvider } from "../../providers/auth-data/auth-data";
 import { BasePage } from "../../lib/base-page";
+import firebase from "firebase";
 
 /**
  * Generated class for the HomePage page.
@@ -24,4 +25,12 @@ export class HomePage extends BasePage {
     console.log('ionViewDidLoad HomePage');
   }
 
+  openProfile() {
+    let currentUser = firebase.auth().currentUser;
+    if(currentUser && !currentUser.isAnonymous) {
+      this.navCtrl.push('ProfilePage');
+    }else{
+      this.navCtrl.push('SignupPage');
+    }
+  }
 }

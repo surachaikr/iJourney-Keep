@@ -16,7 +16,7 @@ export class AuthDataProvider {
   }
 
   signInAnonymously(): any {
-      return firebase.auth().signInAnonymously();
+    return firebase.auth().signInAnonymously();
   }
 
   login(email: string, password: string): any {
@@ -31,19 +31,23 @@ export class AuthDataProvider {
 
   createAccount(email: string, password: string): any {
     let currentUser = firebase.auth().currentUser;
-    if(currentUser) {
+    if (currentUser) {
       //link to current user.
-      let credential = firebase.auth.EmailAuthProvider.credential(email, password);
-      currentUser.link(credential).then((user) => {
-        console.log("Link account success.");
-        firebase.database().ref('/userProfile').child(currentUser.uid).set(`{email: ${email}}`);
-      }, (error) => {
-        console.log("Link account error.", error);
+      return new Promise<any>(resolve => {
+        let credential = firebase.auth.EmailAuthProvider.credential(email, password);
+        currentUser.link(credential).then((user) => {
+          console.log("Link account success.");
+          firebase.database().ref('/userProfile').child(currentUser.uid).update({email: email});
+          resolve(user);
+        }, (error) => {
+          console.log("Link account error.", error);
+          resolve(null);
+        });
       });
-    }else{
+    } else {
       //create new account
       return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-        firebase.database().ref('/userProfile').child(user.uid).set(`{email: ${email}}`);
+        firebase.database().ref('/userProfile').child(user.uid).update({email: email});
       });
     }
   }
