@@ -17,7 +17,7 @@ import { JourneyDataProvider } from "../../providers/journey-data/journey-data";
   templateUrl: 'home.html',
 })
 export class HomePage extends BasePage {
-  public journeyList: any;
+  public journeyList: Array<any>;
 
   constructor(public navCtrl: NavController, public authData: AuthDataProvider, public jnProvider: JourneyDataProvider) {
     super(navCtrl);
@@ -29,6 +29,7 @@ export class HomePage extends BasePage {
 
   ionViewDidEnter() {
     this.jnProvider.getJourneyList().then(listSnap => {
+      console.log(JSON.stringify(listSnap));
       this.journeyList = listSnap;
     });
   }

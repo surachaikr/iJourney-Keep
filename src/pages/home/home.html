@@ -24,10 +24,10 @@
 <ion-content padding>
     <ion-list>
         <ion-item *ngFor="let journey of journeyList" (click)="goToDetail(journey.key)">
-            <h2>{{jouney.title}}</h2>
-            <p>Note: {{jouney.note}}</p>
+            <h2>{{journey.title}}</h2>
+            <p>Note: {{journey.note}}}</p>
             <p>When: {{journey.dateTime}}</p>
-            <p>Location: {{jouney.location}}</p>
+            <p>Location: {{journey.location}}</p>
         </ion-item>
     </ion-list>
 </ion-content>
