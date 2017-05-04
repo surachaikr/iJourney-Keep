@@ -1,0 +1,7 @@
+<!-- Generated template for the JourneyPhotosComponent component -->
+<div>
+    <button ion-button icon-left block small (click)="addImage()">
+      <ion-icon name="add"> Add new photo</ion-icon>
+    </button>
+    <img ion-img *ngFor="let photo of photos" [src]="photo" alt="">
+</div>

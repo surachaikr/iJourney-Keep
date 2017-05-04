@@ -87,4 +87,35 @@ export class JourneyDataProvider {
         });
     });
   }
+
+  addPhoto(journeyKey, photo) {
+    return new Promise((resolve, reject) => {
+      firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${journeyKey}`)
+        .push().then(newDbPhoto => {
+          firebase.storage().ref('/journeyPhoto/').child(journeyKey).child(newDbPhoto.key)
+            .putString(photo, 'base64', { contentType: 'image/png' })
+            .then((savePhoto) => {
+              firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${journeyKey}`)
+                .child(newDbPhoto.key).set(savePhoto.downloadURL).then(snap => {
+                  resolve(savePhoto.downloadURL);
+                });
+            });
+        });
+    });
+  }
+
+  getAllPhotos(journeyKey) {
+    return new Promise((resolve, reject) => {
+      firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${journeyKey}`)
+        .on('value', snapShot => {
+          let res = [];
+          snapShot.forEach((snap) => {
+            res.push(snap.val());
+            return false;
+          });
+
+          resolve(res);
+        });
+    });
+  }
 }

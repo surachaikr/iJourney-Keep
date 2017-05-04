@@ -20,5 +20,8 @@
     <div *ngIf="journey">
         <ion-icon name="star" *ngFor="let item of journey.stars | dummyArray" color="{{journey.stars | starColor}}"></ion-icon>
     </div>
+    <div>
+        <journey-photos [journeyKey]="journey?.key"></journey-photos>
+    </div>
     <p>{{journey?.note}}</p>
 </ion-content>
