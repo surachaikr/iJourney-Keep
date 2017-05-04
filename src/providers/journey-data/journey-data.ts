@@ -92,7 +92,8 @@ export class JourneyDataProvider {
     return new Promise((resolve, reject) => {
       firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${journeyKey}`)
         .push().then(newDbPhoto => {
-          firebase.storage().ref('/journeyPhoto/').child(journeyKey).child(newDbPhoto.key)
+          firebase.storage().ref('/journeyPhoto/').child(firebase.auth().currentUser.uid)
+            .child(journeyKey).child(newDbPhoto.key)
             .putString(photo, 'base64', { contentType: 'image/png' })
             .then((savePhoto) => {
               firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${journeyKey}`)

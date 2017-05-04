@@ -32,9 +32,12 @@ export class JourneyPhotosComponent {
   addImage() {
     this.cameraPlugin.getPicture({
       quality: 95,
-      destinationType: this.cameraPlugin.DestinationType.DATA_URL, sourceType: this.cameraPlugin.PictureSourceType.CAMERA, allowEdit: true,
-      encodingType: this.cameraPlugin.EncodingType.PNG, targetWidth: 500,
-      targetHeight: 500,
+      destinationType: this.cameraPlugin.DestinationType.DATA_URL,
+      sourceType: this.cameraPlugin.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: this.cameraPlugin.EncodingType.PNG,
+      // targetWidth: 500,
+      // targetHeight: 500,
       saveToPhotoAlbum: true
     }).then(imageData => {
       //Save picture to database
