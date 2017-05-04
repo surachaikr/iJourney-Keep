@@ -14,10 +14,17 @@ import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/j
   templateUrl: 'journey-create.html',
 })
 export class JourneyCreatePage {
-  public journey:JourneyData
+  public journey: JourneyData
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
     this.journey = new JourneyData();
+    var date = new Date();
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+    // => '2015-01-26T06:40:36.181'
+    this.journey.dateTime = localISOTime;
+    console.log(this.journey.dateTime);
+    console.log(date.toISOString());
   }
 
   ionViewDidLoad() {

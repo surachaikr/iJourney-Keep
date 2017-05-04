@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthDataProvider } from "../../providers/auth-data/auth-data";
 import { BasePage } from "../../lib/base-page";
 import firebase from "firebase";
@@ -19,7 +19,7 @@ import { JourneyDataProvider } from "../../providers/journey-data/journey-data";
 export class HomePage extends BasePage {
   public journeyList: Array<any>;
 
-  constructor(public navCtrl: NavController, public authData: AuthDataProvider, public jnProvider: JourneyDataProvider) {
+  constructor(public navCtrl: NavController, public authData: AuthDataProvider, public jnProvider: JourneyDataProvider, public alertCtrl: AlertController) {
     super(navCtrl);
   }
 
@@ -29,7 +29,6 @@ export class HomePage extends BasePage {
 
   ionViewDidEnter() {
     this.jnProvider.getJourneyList().then(listSnap => {
-      console.log(JSON.stringify(listSnap));
       this.journeyList = listSnap;
     });
   }
@@ -44,6 +43,27 @@ export class HomePage extends BasePage {
   }
 
   addNewJourney() {
-    this.navCtrl.push('JourneyCreatePage');
+    let currentUser = firebase.auth().currentUser;
+    if(currentUser && currentUser.isAnonymous && this.journeyList && this.journeyList.length > 3) {
+      const alert = this.alertCtrl.create({
+        title: 'Require signup.',
+        message: 'Please signup new account before add more journey.',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          },
+          {
+            text: 'Ok',
+            handler: () => {
+              this.navCtrl.push('SignupPage');
+            }
+          },
+        ]
+      });
+      alert.present();
+    }else{
+      this.navCtrl.push('JourneyCreatePage');
+    }
   }
 }

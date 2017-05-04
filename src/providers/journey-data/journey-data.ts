@@ -39,22 +39,35 @@ export class JourneyDataProvider {
 
   getJourneyList(): Promise<JourneyData[]> {
     return new Promise((resolve, reject) => {
-      firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
-        .on('value', snapshot => {
-          let rawList = [];
-          snapshot.forEach(snap => {
-            let itm: JourneyData = new JourneyData();
-            itm.key = snap.key;
-            itm.title = snap.val().title;
-            itm.note = snap.val().note;
-            itm.dateTime = snap.val().dateTime;
-            itm.location = snap.val().location;
-            itm.stars = snap.val().stars;
-            rawList.push(itm);
-            return false;
-          });
-          resolve(rawList);
-        });
+      let count: number = 0;
+      let intervalId = setInterval(() => {
+        count++;
+        if (firebase.auth().currentUser || count > 10) {
+          clearInterval(intervalId);
+
+          if (firebase.auth().currentUser) {
+            firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
+              .on('value', snapshot => {
+                let rawList = [];
+                snapshot.forEach(snap => {
+                  let itm: JourneyData = new JourneyData();
+                  itm.key = snap.key;
+                  itm.title = snap.val().title;
+                  itm.note = snap.val().note;
+                  itm.dateTime = snap.val().dateTime;
+                  itm.location = snap.val().location;
+                  itm.stars = snap.val().stars;
+                  rawList.push(itm);
+                  return false;
+                });
+                resolve(rawList);
+              });
+          } else {
+            console.log('Time out');
+            reject(null);
+          }
+        }
+      }, 100);
     });
   }
 
