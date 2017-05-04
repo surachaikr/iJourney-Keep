@@ -28,7 +28,7 @@
             <p>When: {{journey.dateTime}}</p>
             <p>Location: {{journey.location}}</p>
             <p>Note: {{journey.note}}}</p>
-            <ion-icon name="star" *ngFor="let item of tempArray(journey.stars)"></ion-icon>
+            <ion-icon name="star" *ngFor="let item of journey.stars | dummyArray" color="{{journey.stars | starColor}}"></ion-icon>
         </ion-item>
     </ion-list>
 </ion-content>

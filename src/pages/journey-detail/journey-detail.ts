@@ -30,11 +30,4 @@ export class JourneyDetailPage {
     console.log('ionViewDidLoad JourneyDetailPage');
   }
 
-  tempArray(size) {
-    let ar = [];
-    for (let i=0; i<size; i++) {
-      ar.push(1);
-    }
-    return ar;
-  }
 }

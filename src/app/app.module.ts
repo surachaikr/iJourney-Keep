@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { JourneyDataProvider } from '../providers/journey-data/journey-data';
 import { AuthDataProvider } from '../providers/auth-data/auth-data';
 import { ProfileDataProvider } from '../providers/profile-data/profile-data';
+import { DummyArrayPipeModule } from "../pipes/dummy-array/dummy-array.module";
 
 class CameraMock extends Camera {
   getPicture(options) {
@@ -24,7 +25,8 @@ class CameraMock extends Camera {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    DummyArrayPipeModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
