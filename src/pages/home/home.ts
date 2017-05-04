@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { AuthDataProvider } from "../../providers/auth-data/auth-data";
 import { BasePage } from "../../lib/base-page";
 import firebase from "firebase";
+import { JourneyDataProvider } from "../../providers/journey-data/journey-data";
 
 /**
  * Generated class for the HomePage page.
@@ -16,13 +17,20 @@ import firebase from "firebase";
   templateUrl: 'home.html',
 })
 export class HomePage extends BasePage {
+  public journeyList: any;
 
-  constructor(public navCtrl: NavController, public authData: AuthDataProvider) {
+  constructor(public navCtrl: NavController, public authData: AuthDataProvider, public jnProvider: JourneyDataProvider) {
     super(navCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+  }
+
+  ionViewDidEnter() {
+    this.jnProvider.getJourneyList().then(listSnap => {
+      this.journeyList = listSnap;
+    });
   }
 
   openProfile() {
@@ -32,5 +40,9 @@ export class HomePage extends BasePage {
     }else{
       this.navCtrl.push('SignupPage');
     }
+  }
+
+  addNewJourney() {
+    this.navCtrl.push('JourneyCreatePage');
   }
 }

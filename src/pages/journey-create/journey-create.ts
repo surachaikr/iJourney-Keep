@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/journey-data";
 
 /**
  * Generated class for the JourneyCreatePage page.
@@ -13,12 +14,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'journey-create.html',
 })
 export class JourneyCreatePage {
+  public journey:JourneyData
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
+    this.journey = new JourneyData();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JourneyCreatePage');
   }
 
+  createJourney() {
+    this.jnProvider.createJourney(this.journey).then(newJourney => {
+      this.navCtrl.pop();
+    });
+  }
 }

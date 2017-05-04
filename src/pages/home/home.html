@@ -7,8 +7,11 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-title>My Journey</ion-title>
+        <ion-title>My Journeies</ion-title>
         <ion-buttons end>
+            <button ion-button icon-only (click)="addNewJourney()">
+            <ion-icon name="add"></ion-icon>
+          </button>
             <button ion-button icon-only (click)="openProfile()">
             <ion-icon name="person"></ion-icon>
           </button>
@@ -19,5 +22,12 @@
 
 
 <ion-content padding>
-    Hello my journey.
+    <ion-list>
+        <ion-item *ngFor="let journey of journeyList" (click)="goToDetail(journey.key)">
+            <h2>{{jouney.title}}</h2>
+            <p>Note: {{jouney.note}}</p>
+            <p>When: {{journey.dateTime}}</p>
+            <p>Location: {{jouney.location}}</p>
+        </ion-item>
+    </ion-list>
 </ion-content>
