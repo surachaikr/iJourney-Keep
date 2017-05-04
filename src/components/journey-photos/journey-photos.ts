@@ -1,4 +1,4 @@
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ModalController } from 'ionic-angular';
 import { JourneyDataProvider } from '../../providers/journey-data/journey-data';
 import { Camera } from '@ionic-native/camera';
 import { Component, Input } from '@angular/core';
@@ -18,7 +18,7 @@ export class JourneyPhotosComponent {
   @Input() journeyKey: any;
   public photos: any;
 
-  constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController) {
+  constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
     console.log('Hello JourneyPhotosComponent Component');
   }
 
@@ -51,4 +51,8 @@ export class JourneyPhotosComponent {
     });
   }
 
+  openPopPhoto(photo) {
+    const modal = this.modalCtrl.create('PhotoPopupPage', {photoSrc: photo});
+    modal.present();
+  }
 }
