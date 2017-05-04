@@ -67,6 +67,10 @@ export class HomePage extends BasePage {
     }
   }
 
+  goToDetail(key) {
+    this.navCtrl.push('JourneyDetailPage', {journeyKey: key});
+  }
+
   tempArray(size) {
     let ar = [];
     for (let i=0; i<size; i++) {

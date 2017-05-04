@@ -6,13 +6,19 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>JourneyDetail</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>{{journey?.title}}</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <h2 ion-text wrap>{{journey?.title}}</h2>
+    <p>When: <strong>{{journey?.dateTime}}</strong></p>
+    <p>Location: <strong>{{journey?.location}}</strong></p>
+    <div *ngIf="journey">
+        <ion-icon name="star" *ngFor="let item of tempArray(journey.stars)"></ion-icon>
+    </div>
+    <p>{{journey?.note}}</p>
 </ion-content>
