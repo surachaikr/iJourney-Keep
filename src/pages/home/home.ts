@@ -66,4 +66,12 @@ export class HomePage extends BasePage {
       this.navCtrl.push('JourneyCreatePage');
     }
   }
+
+  tempArray(size) {
+    let ar = [];
+    for (let i=0; i<size; i++) {
+      ar.push(1);
+    }
+    return ar;
+  }
 }

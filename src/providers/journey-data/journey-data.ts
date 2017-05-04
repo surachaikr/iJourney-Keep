@@ -13,8 +13,8 @@ export class JourneyData {
   key: string;
   title: string;
   note: string;
-  dateTime: any;
-  location: any;
+  dateTime: string;
+  location: string;
   stars: number;
 }
 
@@ -47,6 +47,7 @@ export class JourneyDataProvider {
 
           if (firebase.auth().currentUser) {
             firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
+              .orderByChild('dateTime')
               .on('value', snapshot => {
                 let rawList = [];
                 snapshot.forEach(snap => {
@@ -60,7 +61,7 @@ export class JourneyDataProvider {
                   rawList.push(itm);
                   return false;
                 });
-                resolve(rawList);
+                resolve(rawList.reverse());
               });
           } else {
             console.log('Time out');

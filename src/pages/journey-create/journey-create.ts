@@ -19,12 +19,11 @@ export class JourneyCreatePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
     this.journey = new JourneyData();
     var date = new Date();
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    var tzoffset = date.getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
     // => '2015-01-26T06:40:36.181'
     this.journey.dateTime = localISOTime;
-    console.log(this.journey.dateTime);
-    console.log(date.toISOString());
+    this.journey.stars = 1;
   }
 
   ionViewDidLoad() {
@@ -34,6 +33,9 @@ export class JourneyCreatePage {
   createJourney() {
     this.jnProvider.createJourney(this.journey).then(newJourney => {
       this.navCtrl.pop();
+    }).catch(error => {
+      console.log(error.message);
     });
   }
+
 }

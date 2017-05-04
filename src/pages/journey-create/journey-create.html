@@ -14,24 +14,27 @@
 
 <ion-content padding>
     <ion-item>
-        <ion-label stacked>Title</ion-label>
-        <ion-input [(ngModel)]="journey.title" type="text" placeholder="Your journey name."></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked>Note</ion-label>
-        <ion-input [(ngModel)]="journey.note" type="text" placeholder="Your story."></ion-input>
-    </ion-item>
-    <ion-item>
         <ion-label>When</ion-label>
         <ion-datetime displayFormat="D MMM, YY HH:mm" pickerFormat="DD MMM YYYY HH:mm" [(ngModel)]="journey.dateTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>Title</ion-label>
+        <ion-input [(ngModel)]="journey.title" type="text" placeholder="Your journey name."></ion-input>
     </ion-item>
     <ion-item>
         <ion-label stacked>Location</ion-label>
         <ion-input [(ngModel)]="journey.location" type="text" placeholder="Your place."></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label stacked>Stars</ion-label>
-        <ion-input [(ngModel)]="journey.stars" type="text" placeholder="How much interested."></ion-input>
+        <ion-label stacked>Interested</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="journey.stars">
+            <ion-icon small range-left name="star"></ion-icon>
+            <ion-icon range-right name="star"></ion-icon>
+        </ion-range>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>Note</ion-label>
+        <ion-textarea [(ngModel)]="journey.note" placeholder="Your story."></ion-textarea>
     </ion-item>
     <button ion-button block (click)="createJourney()">Create Journey</button>
 </ion-content>
