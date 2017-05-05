@@ -10,7 +10,7 @@ import { JourneyPhotosComponentModule } from "../../components/journey-photos/jo
   ],
   imports: [
     IonicPageModule.forChild(JourneyDetailPage),
-    DummyArrayPipeModule.forRoot(),
+    DummyArrayPipeModule,
     JourneyPhotosComponentModule
   ],
   exports: [

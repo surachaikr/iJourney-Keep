@@ -9,7 +9,7 @@ import { DummyArrayPipeModule } from "../../pipes/dummy-array/dummy-array.module
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    DummyArrayPipeModule.forRoot()
+    DummyArrayPipeModule
   ],
   exports: [
     HomePage,

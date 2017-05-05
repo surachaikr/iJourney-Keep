@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { JourneyPhotosComponent } from './journey-photos';
-import { DummyArrayPipeModule } from "../../pipes/dummy-array/dummy-array.module";
 
 @NgModule({
   declarations: [
@@ -9,7 +8,6 @@ import { DummyArrayPipeModule } from "../../pipes/dummy-array/dummy-array.module
   ],
   imports: [
     IonicPageModule.forChild(JourneyPhotosComponent),
-    DummyArrayPipeModule.forRoot()
   ],
   exports: [
     JourneyPhotosComponent

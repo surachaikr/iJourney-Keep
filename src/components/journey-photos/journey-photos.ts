@@ -23,7 +23,6 @@ export class JourneyPhotosComponent {
   }
 
   ngOnInit() {
-    console.log('key = ' + this.journeyKey);
     this.jnProvider.getAllPhotos(this.journeyKey).then(res => {
       this.photos = res;
     });
