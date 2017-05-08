@@ -32,11 +32,6 @@ export class JourneyDetailPage {
 
   goToEdit() {
     const updateModal = this.modalCtrl.create('JourneyEditPage', {journey: this.journey});
-    updateModal.onDidDismiss((retData) => {
-      if(retData) {
-        this.journey = retData.journey;
-      }
-    });
     updateModal.present();
   }
 }

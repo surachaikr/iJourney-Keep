@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/journey-data";
 
 /**
@@ -16,7 +16,7 @@ import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/j
 export class JourneyEditPage {
   public journey: JourneyData = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
     this.journey = this.navParams.get('journey');
     if(!this.journey) {
       this.navCtrl.pop();
@@ -33,7 +33,7 @@ export class JourneyEditPage {
 
   updateJourney() {
     this.jnProvider.updateJourney(this.journey).then(() => {
-      this.viewCtrl.dismiss({journey: this.journey});
+      this.navCtrl.pop();
     });
   }
 }
