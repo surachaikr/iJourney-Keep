@@ -9,9 +9,10 @@
     <ion-navbar color="primary">
         <ion-title>Profile</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
+            <button ion-button icon-right (click)="logOut()">
+              Logout
+              <ion-icon name="log-out"></ion-icon>
+            </button>
         </ion-buttons>
     </ion-navbar>
 
@@ -72,3 +73,7 @@
     </ion-list>
     Tap on information you need to update.
 </ion-content>
+
+<ion-footer>
+    <app-version></app-version>
+</ion-footer>

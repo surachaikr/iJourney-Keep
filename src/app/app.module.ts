@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { JourneyDataProvider } from '../providers/journey-data/journey-data';
 import { AuthDataProvider } from '../providers/auth-data/auth-data';
 import { ProfileDataProvider } from '../providers/profile-data/profile-data';
+//import { AppVersionComponent } from '../components/app-version/app-version';
 //import { DummyArrayPipeModule } from "../pipes/dummy-array/dummy-array.module";
 //import { JourneyPhotosComponent } from '../components/journey-photos/journey-photos';
 
@@ -23,6 +24,7 @@ class CameraMock extends Camera {
 @NgModule({
   declarations: [
     MyApp,
+    //AppVersionComponent,
     //    JourneyPhotosComponent,
   ],
   imports: [

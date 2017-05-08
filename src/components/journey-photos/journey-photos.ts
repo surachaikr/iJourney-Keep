@@ -29,32 +29,32 @@ export class JourneyPhotosComponent {
   }
 
   addImage() {
+    const loading = this.loadingCtrl.create();
     this.cameraPlugin.getPicture({
       quality: 95,
       destinationType: this.cameraPlugin.DestinationType.DATA_URL,
       sourceType: this.cameraPlugin.PictureSourceType.CAMERA,
       allowEdit: true,
       encodingType: this.cameraPlugin.EncodingType.PNG,
-      // targetWidth: 500,
-      // targetHeight: 500,
+      targetWidth: 500,
+      targetHeight: 500,
       saveToPhotoAlbum: true
     }).then(imageData => {
       //Save picture to database
-      const loading = this.loadingCtrl.create();
       this.jnProvider.addPhoto(this.journeyKey, imageData).then(newPhoto => {
         if (newPhoto && newPhoto != "") {
           this.photos.push(newPhoto);
           loading.dismiss();
         }
       });
-      loading.present();
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
     });
+    loading.present();
   }
 
   openPopPhoto(photo) {
-    const modal = this.modalCtrl.create('PhotoPopupPage', {photoSrc: photo});
+    const modal = this.modalCtrl.create('PhotoPopupPage', { photoSrc: photo });
     modal.present();
   }
 }
