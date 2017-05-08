@@ -1,4 +1,4 @@
-import { LoadingController, ModalController } from 'ionic-angular';
+import { Platform, LoadingController, ModalController } from 'ionic-angular';
 import { JourneyDataProvider } from '../../providers/journey-data/journey-data';
 import { Camera } from '@ionic-native/camera';
 import { Component, Input } from '@angular/core';
@@ -17,9 +17,11 @@ import { Component, Input } from '@angular/core';
 export class JourneyPhotosComponent {
   @Input() journeyKey: any;
   public photos: any;
+  public isCordova: boolean = false;
 
-  constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+  constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public platform: Platform) {
     console.log('Hello JourneyPhotosComponent Component');
+    this.isCordova = platform.is('isCordova');
   }
 
   ngOnInit() {

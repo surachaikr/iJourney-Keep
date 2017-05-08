@@ -1,7 +1,8 @@
 <!-- Generated template for the JourneyPhotosComponent component -->
 <div>
-    <button ion-button icon-left block small (click)="addImage()">
+    <button *ngIf="isCordova" ion-button icon-left block small (click)="addImage()">
       <ion-icon name="add"> Add new photo</ion-icon>
     </button>
+    <p *ngIf="!isCordova">Add more picture only available on mobile.</p>
     <img ion-img *ngFor="let photo of photos" [src]="photo" alt="" (click)="openPopPhoto(photo)">
 </div>
