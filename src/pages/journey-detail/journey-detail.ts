@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { JourneyData, JourneyDataProvider } from "../../providers/journey-data/journey-data";
 
 /**
@@ -16,7 +16,7 @@ import { JourneyData, JourneyDataProvider } from "../../providers/journey-data/j
 export class JourneyDetailPage {
   public journey: JourneyData;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider, public modalCtrl: ModalController) {
     if(!this.navParams.get('journeyKey')) {
       this.navCtrl.setRoot('HomePage');
     }else{
@@ -30,4 +30,13 @@ export class JourneyDetailPage {
     console.log('ionViewDidLoad JourneyDetailPage');
   }
 
+  goToEdit() {
+    const updateModal = this.modalCtrl.create('JourneyEditPage', {journey: this.journey});
+    updateModal.onDidDismiss((retData) => {
+      if(retData) {
+        this.journey = retData.journey;
+      }
+    });
+    updateModal.present();
+  }
 }

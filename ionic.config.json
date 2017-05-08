@@ -1,5 +1,5 @@
 {
-  "name": "My Journey Record",
-  "app_id": "",
-  "type": "ionic-angular"
+    "name": "My Journey Record",
+    "app_id": "com.toworksmile.learn.myjourney",
+    "type": "ionic-angular"
 }

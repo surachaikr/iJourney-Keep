@@ -8,6 +8,11 @@
 
     <ion-navbar color="primary">
         <ion-title>{{journey?.title}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToEdit()">
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>

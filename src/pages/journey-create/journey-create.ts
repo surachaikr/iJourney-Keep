@@ -14,7 +14,7 @@ import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/j
   templateUrl: 'journey-create.html',
 })
 export class JourneyCreatePage {
-  public journey: JourneyData
+  public journey: JourneyData;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
     this.journey = new JourneyData();

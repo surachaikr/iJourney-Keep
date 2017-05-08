@@ -37,6 +37,17 @@ export class JourneyDataProvider {
       });
   }
 
+  updateJourney(journey: JourneyData): firebase.Promise<any> {
+    return firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
+      .child(journey.key).update({
+        title: journey.title,
+        note: journey.note,
+        dateTime: journey.dateTime,
+        location: journey.location,
+        stars: journey.stars,
+      });
+  }
+
   getJourneyList(): Promise<JourneyData[]> {
     return new Promise((resolve, reject) => {
       let count: number = 0;
