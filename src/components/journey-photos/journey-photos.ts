@@ -21,7 +21,9 @@ export class JourneyPhotosComponent {
 
   constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public platform: Platform) {
     console.log('Hello JourneyPhotosComponent Component');
-    this.isCordova = platform.is('isCordova');
+    platform.ready().then(() => {
+      this.isCordova = platform.is('cordova');
+    });
   }
 
   ngOnInit() {
