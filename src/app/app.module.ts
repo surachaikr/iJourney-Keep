@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from "@ionic-native/camera";
+import { Geolocation } from "@ionic-native/geolocation";
 
 import { MyApp } from './app.component';
 import { JourneyDataProvider } from '../providers/journey-data/journey-data';
@@ -45,6 +46,7 @@ class CameraMock extends Camera {
     JourneyDataProvider,
     AuthDataProvider,
     ProfileDataProvider,
+    Geolocation,
   ]
 })
 export class AppModule { }

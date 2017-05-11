@@ -21,7 +21,11 @@
 <ion-content padding>
     <h2 ion-text wrap>{{journey?.title}}</h2>
     <p>When: <strong>{{journey?.dateTime}}</strong></p>
-    <p>Location: <strong>{{journey?.location}}</strong></p>
+    <p>Location: <strong>{{journey?.location}}</strong>&nbsp;
+        <button ion-button *ngIf="journey?.locationGPS" small icon-only (click)="openMap()">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </p>
     <div *ngIf="journey">
         <ion-icon name="star" *ngFor="let item of journey.stars | dummyArray" color="{{journey.stars | starColor}}"></ion-icon>
     </div>

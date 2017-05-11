@@ -15,6 +15,7 @@ export class JourneyData {
   note: string;
   dateTime: string;
   location: string;
+  locationGPS: google.maps.LatLng;
   stars: number;
 }
 
@@ -27,23 +28,39 @@ export class JourneyDataProvider {
 
 
   createJourney(journey: JourneyData): firebase.Promise<any> {
+    let lat: number = null;
+    let lng: number = null;
+    if (journey.locationGPS) {
+      lat = journey.locationGPS.lat();
+      lng = journey.locationGPS.lng();
+    }
     return firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
       .push({
         title: journey.title,
         note: journey.note,
         dateTime: journey.dateTime,
         location: journey.location,
+        latitude: lat,
+        longitude: lng,
         stars: journey.stars,
       });
   }
 
   updateJourney(journey: JourneyData): firebase.Promise<any> {
+    let lat: number = null;
+    let lng: number = null;
+    if (journey.locationGPS) {
+      lat = journey.locationGPS.lat();
+      lng = journey.locationGPS.lng();
+    }
     return firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}/journeyList`)
       .child(journey.key).update({
         title: journey.title,
         note: journey.note,
         dateTime: journey.dateTime,
         location: journey.location,
+        latitude: lat,
+        longitude: lng,
         stars: journey.stars,
       });
   }
@@ -68,6 +85,9 @@ export class JourneyDataProvider {
                   itm.note = snap.val().note;
                   itm.dateTime = snap.val().dateTime;
                   itm.location = snap.val().location;
+                  if (snap.val().latitude && snap.val().longitude) {
+                    itm.locationGPS = new google.maps.LatLng(snap.val().latitude, snap.val().longitude);
+                  }
                   itm.stars = snap.val().stars;
                   rawList.push(itm);
                   return false;
@@ -93,6 +113,9 @@ export class JourneyDataProvider {
           itm.note = snap.val().note;
           itm.dateTime = snap.val().dateTime;
           itm.location = snap.val().location;
+          if (snap.val().latitude && snap.val().longitude) {
+            itm.locationGPS = new google.maps.LatLng(snap.val().latitude, snap.val().longitude);
+          }
           itm.stars = snap.val().stars;
           resolve(itm);
         });

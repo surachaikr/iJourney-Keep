@@ -34,4 +34,8 @@ export class JourneyDetailPage {
     const updateModal = this.modalCtrl.create('JourneyEditPage', {journey: this.journey});
     updateModal.present();
   }
+
+  openMap() {
+    this.navCtrl.push('MapOnlyViewPage', {locationPos: this.journey.locationGPS});
+  }
 }

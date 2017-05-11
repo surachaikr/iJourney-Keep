@@ -1,0 +1,16 @@
+page-map-only-view {
+    #map {
+        width: 100%;
+        height: 100%
+    }
+    div.myLocation {
+        background-color: #FFFFFF;
+        padding: 0.5em;
+        text-align: center;
+        position: absolute;
+        z-index: 999;
+        bottom: 130px;
+        right: 10px;
+        border-radius: 2px;
+    }
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/journey-data";
 
 /**
@@ -16,7 +16,7 @@ import { JourneyDataProvider, JourneyData } from "../../providers/journey-data/j
 export class JourneyCreatePage {
   public journey: JourneyData;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jnProvider: JourneyDataProvider, public modalCtrl: ModalController) {
     this.journey = new JourneyData();
     var date = new Date();
     var tzoffset = date.getTimezoneOffset() * 60000; //offset in milliseconds
@@ -36,6 +36,17 @@ export class JourneyCreatePage {
     }).catch(error => {
       console.log(error.message);
     });
+  }
+
+  openMap() {
+    const modalLocation = this.modalCtrl.create('MapViewPage');
+    modalLocation.onDidDismiss((pos) => {
+      if(pos && pos.locationPos) {
+        console.log(JSON.stringify(pos));
+        this.journey.locationGPS = pos.locationPos;
+      }
+    });
+    modalLocation.present();
   }
 
 }
