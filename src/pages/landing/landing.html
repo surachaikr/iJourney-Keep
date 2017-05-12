@@ -24,13 +24,19 @@
                   Start record your journey.
                 </button>
                 <ion-buttons end>
-                    <button ion-button clear (click)="goToLogin()">
-                      Login.
-                    </button>
                     <button ion-button clear (click)="goToSignup()">
                       Sign-up.
                     </button>
                 </ion-buttons>
+                <br><br><br><br>
+                <button ion-button icon-left block color="dark" (click)="goToLogin()">
+                  <ion-icon name="mail"></ion-icon>
+                  Login with email.
+                </button>
+                <button ion-button icon-left block color="facebook" (click)="loginFacebook()">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                  Login with facebook.
+                </button>
             </ion-col>
             <ion-col col-sm-1 col-md-2 col-xl-3></ion-col>
         </ion-row>
