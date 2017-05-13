@@ -1,6 +1,8 @@
+import { Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import firebase from "firebase";
+import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook";
 
 /*
   Generated class for the AuthDataProvider provider.
@@ -11,7 +13,7 @@ import firebase from "firebase";
 @Injectable()
 export class AuthDataProvider {
 
-  constructor() {
+  constructor(public platform: Platform, public fb: Facebook) {
     console.log('Hello AuthDataProvider Provider');
   }
 
@@ -37,7 +39,7 @@ export class AuthDataProvider {
         let credential = firebase.auth.EmailAuthProvider.credential(email, password);
         currentUser.link(credential).then((user) => {
           console.log("Link account success.");
-          firebase.database().ref('/userProfile').child(currentUser.uid).update({email: email});
+          firebase.database().ref('/userProfile').child(currentUser.uid).update({ email: email });
           resolve(user);
         }, (error) => {
           console.log("Link account error.", error);
@@ -47,7 +49,7 @@ export class AuthDataProvider {
     } else {
       //create new account
       return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-        firebase.database().ref('/userProfile').child(user.uid).update({email: email});
+        firebase.database().ref('/userProfile').child(user.uid).update({ email: email });
       });
     }
   }
@@ -56,4 +58,43 @@ export class AuthDataProvider {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
+  loginFacebook(): any {
+    return new Promise((resolve, reject) => {
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        this.fb.login(['public_profile', 'email']).then((res: FacebookLoginResponse) => {
+          let credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          firebase.auth().signInWithCredential(credential).then(user => {
+            this.checkProfile(user);
+            resolve(user);
+          }).catch(err => {
+            reject(err);
+          });
+        }).catch(err => {
+          reject(err);
+        });
+      } else {
+        let provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('public_profile');
+        provider.addScope('email');
+        provider.setCustomParameters({
+          'display': 'popup'
+        });
+        firebase.auth().signInWithPopup(provider).then((result) => {
+          console.log('accessToken = ', result.credential.accessToken);
+          console.log('User = ', JSON.stringify(result.user));
+          this.checkProfile(result.user);
+          resolve(result);
+        }).catch((err) => {
+          reject(err);
+        });
+      }
+    });
+  }
+
+  private checkProfile(user: any): void {
+    console.log("Check profile user id: ", user.uid);
+    firebase.database().ref('/userProfile').child(user.uid).update({
+      email: user.email
+    });
+  }
 }

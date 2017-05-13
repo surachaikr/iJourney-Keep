@@ -1,6 +1,6 @@
 {
     "name": "MyJourney",
-    "version": "1.2.0",
+    "version": "1.2.2",
     "author": "Korakoch Singkam",
     "homepage": "http://www.toworksmile.com/",
     "private": true,
@@ -21,6 +21,7 @@
         "@angular/platform-browser-dynamic": "4.0.2",
         "@ionic-native/camera": "^3.6.1",
         "@ionic-native/core": "3.6.1",
+        "@ionic-native/facebook": "^3.7.0",
         "@ionic-native/geolocation": "^3.7.0",
         "@ionic-native/splash-screen": "3.6.1",
         "@ionic-native/status-bar": "3.6.1",
@@ -33,6 +34,7 @@
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-facebook4": "^1.7.4",
         "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.1",
@@ -71,6 +73,10 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-geolocation": {
                 "GEOLOCATION_USAGE_DESCRIPTION": " "
+            },
+            "cordova-plugin-facebook4": {
+                "APP_ID": "840496946103122",
+                "APP_NAME": "Ionic3 Training"
             }
         }
     }

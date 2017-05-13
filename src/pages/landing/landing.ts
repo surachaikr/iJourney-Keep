@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { AuthDataProvider } from "../../providers/auth-data/auth-data";
-import firebase from "firebase";
 
 /**
  * Generated class for the LandingPage page.
@@ -45,18 +44,15 @@ export class LandingPage {
   }
 
   loginFacebook() {
-    let provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('public_profile');
-    provider.setCustomParameters({
-      'display': 'popup'
+    this.authData.loginFacebook().then((res) => {
+      this.navCtrl.setRoot('HomePage');
+      loading.dismiss();
+    }).catch(err => {
+      console.log('Error: ', err);
+      loading.dismiss();
     });
 
-    firebase.auth().signInWithPopup(provider).then((result) => {
-      console.log('accessToken = ', result.credential.accessToken);
-      console.log('User = ', JSON.stringify( result.user));
-    }).catch((err) => {
-      console.log('err = ', err.message);
-    });
-
+    const loading = this.loadingCtrl.create();
+    loading.present();
   }
 }
