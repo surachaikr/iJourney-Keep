@@ -26,17 +26,19 @@ export class JourneyPhotosComponent {
     platform.ready().then(() => {
       this.isCordova = platform.is('cordova');
     });
+    this.photos = [];
   }
 
   ngOnInit() {
-    this.jnProvider.getAllPhotos(this.journeyKey).then(res => {
-      this.photos = res;
-    });
+    // this.jnProvider.getAllPhotos(this.journeyKey).then(res => {
+    //   this.photos = res;
+    // });
 
+    var me = this;
     this.photoAddHandler = firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${this.journeyKey}`)
       .on('child_added', snapShot => {
         console.log('child add: ', JSON.stringify(snapShot));
-        this.photos.push(snapShot.val());
+        me.photos.push(snapShot.val());
       });
   }
 
