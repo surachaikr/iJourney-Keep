@@ -16,22 +16,22 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authData: AuthDataProvider) {
     firebase.initializeApp({
-      apiKey: "AIzaSyBJhHRIS38XKyLHDE71UH7CE_J0HP9QR64",
-      authDomain: "ks-firebase-journey.firebaseapp.com",
-      databaseURL: "https://ks-firebase-journey.firebaseio.com",
-      projectId: "ks-firebase-journey",
-      storageBucket: "ks-firebase-journey.appspot.com",
-      messagingSenderId: "719757208855"
+      apiKey: "AIzaSyCmBjgRb_vMLSpIhXL86WFDKj02TOJFjlU",
+      authDomain: "ijourneykeep.firebaseapp.com",
+      databaseURL: "https://ijourneykeep.firebaseio.com",
+      projectId: "ijourneykeep",
+      storageBucket: "ijourneykeep.appspot.com",
+      messagingSenderId: "1015604298121"
     });
 
     this.zone = new NgZone({});
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       console.log('onAuthStateChanged');
       this.zone.run(() => {
-        if(!user) {
+        if (!user) {
           this.rootPage = 'LandingPage';
           unsubscribe();
-        }else{
+        } else {
           this.rootPage = 'HomePage';
           unsubscribe();
         }
