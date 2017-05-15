@@ -19,6 +19,7 @@ export class JourneyPhotosComponent {
   @Input() journeyKey: any;
   public photos: any;
   public isCordova: boolean = false;
+  private photoAddHandler: any;
 
   constructor(public cameraPlugin: Camera, public jnProvider: JourneyDataProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public platform: Platform) {
     console.log('Hello JourneyPhotosComponent Component');
@@ -32,11 +33,15 @@ export class JourneyPhotosComponent {
       this.photos = res;
     });
 
-    firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${this.journeyKey}`)
+    this.photoAddHandler = firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${this.journeyKey}`)
       .on('child_added', snapShot => {
         console.log('child add: ', JSON.stringify(snapShot));
         this.photos.push(snapShot.val());
       });
+  }
+
+  ngOnDestroy() {
+    this.photoAddHandler = firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${this.journeyKey}`).off('child_added', this.photoAddHandler);
   }
 
   addImage() {
