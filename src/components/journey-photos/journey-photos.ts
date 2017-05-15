@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { Platform, LoadingController, ModalController } from 'ionic-angular';
 import { JourneyDataProvider } from '../../providers/journey-data/journey-data';
 import { Camera } from '@ionic-native/camera';
@@ -30,6 +31,12 @@ export class JourneyPhotosComponent {
     this.jnProvider.getAllPhotos(this.journeyKey).then(res => {
       this.photos = res;
     });
+
+    firebase.database().ref(`/journeyPhoto/${firebase.auth().currentUser.uid}/${this.journeyKey}`)
+      .on('child_added', snapShot => {
+        console.log('child add: ', JSON.stringify(snapShot));
+        this.photos.push(snapShot.val());
+      });
   }
 
   addImage() {
