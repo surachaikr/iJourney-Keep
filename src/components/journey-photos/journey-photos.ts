@@ -60,10 +60,7 @@ export class JourneyPhotosComponent {
     }).then(imageData => {
       //Save picture to database
       this.jnProvider.addPhoto(this.journeyKey, imageData).then(newPhoto => {
-        if (newPhoto && newPhoto != "") {
-          this.photos.push(newPhoto);
-          loading.dismiss();
-        }
+        loading.dismiss();
       });
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
