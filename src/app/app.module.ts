@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from "@ionic-native/camera";
 import { Geolocation } from "@ionic-native/geolocation";
 import { Facebook } from "@ionic-native/facebook";
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { MyApp } from './app.component';
 import { JourneyDataProvider } from '../providers/journey-data/journey-data';
@@ -49,6 +50,7 @@ class CameraMock extends Camera {
     ProfileDataProvider,
     Geolocation,
     Facebook,
+    InAppBrowser
   ]
 })
 export class AppModule { }
