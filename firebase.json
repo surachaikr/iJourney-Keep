@@ -1,5 +1,10 @@
 {
     "hosting": {
-        "public": "platforms/browser/www"
+        "public": "www",
+        "redirects": [{
+            "source": "/tws/*",
+            "destination": "http://www.toworksmile.com",
+            "type": 302
+        }]
     }
 }
